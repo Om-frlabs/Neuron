@@ -32,7 +32,8 @@ if tokenizer.pad_token is None:
 print("📚 Mounting Datasets: Wikipedia, OpenAssistant, Math, Code, & Identity...")
 
 # We use streaming to prevent RAM exhaustion on Colab
-d_wiki = load_dataset("wikipedia", "20220301.en", split="train", streaming=True).shuffle(buffer_size=1000)
+print("📚 Loading Wikipedia (General Knowledge)...")
+d_wiki = load_dataset("wikimedia/wikipedia", "20231101.en", split="train", streaming=True).shuffle(buffer_size=1000)
 d_chat = load_dataset("OpenAssistant/oasst1", split="train", streaming=True).shuffle(buffer_size=1000)
 d_code = load_dataset("iamtarun/python_code_instructions_18k_alpaca", split="train", streaming=True).shuffle(buffer_size=1000)
 d_math = load_dataset("meta-math/MetaMathQA", split="train", streaming=True).shuffle(buffer_size=1000)
@@ -107,7 +108,12 @@ optimizer = torch.optim.AdamW(model.parameters(), lr=LEARNING_RATE, weight_decay
 
 start_step = 0
 if os.path.exists(SAVE_DIR):
-    checkpoints = sorted([f for f in os.listdir(SAVE_DIR) if f.endswith(".pt")])
+    def get_step(filename):
+        try:
+            return int(filename.split("_")[-1].split(".")[0])
+        except ValueError:
+            return -1
+    checkpoints = sorted([f for f in os.listdir(SAVE_DIR) if f.endswith(".pt")], key=get_step)
     if checkpoints:
         latest = os.path.join(SAVE_DIR, checkpoints[-1])
         print(f"🔄 Resuming Knowledge Expansion from {latest}...")
@@ -134,7 +140,10 @@ while True:  # Infinite loop for streaming datasets
     input_ids = encode_batch(texts).to(DEVICE)
     
     inputs = input_ids[:, :-1].contiguous()
-    targets = input_ids[:, 1:].contiguous()
+    targets = input_ids[:, 1:].clone().contiguous()
+    
+    # CRITICAL BUG FIX: Mask out the padding tokens! 
+    targets[targets == tokenizer.pad_token_id] = -100
     
     optimizer.zero_grad(set_to_none=True)
     

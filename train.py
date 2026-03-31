@@ -70,7 +70,12 @@ optimizer = torch.optim.AdamW(model.parameters(), lr=LEARNING_RATE, weight_decay
 # Check for existing checkpoint in Google Drive to resume (so you don't lose Colab progress)
 start_step = 0
 if os.path.exists(SAVE_DIR):
-    checkpoints = sorted([f for f in os.listdir(SAVE_DIR) if f.endswith(".pt")])
+    def get_step(filename):
+        try:
+            return int(filename.split("_")[-1].split(".")[0])
+        except ValueError:
+            return -1
+    checkpoints = sorted([f for f in os.listdir(SAVE_DIR) if f.endswith(".pt")], key=get_step)
     if checkpoints:
         latest = os.path.join(SAVE_DIR, checkpoints[-1])
         print(f"🔄 Resuming from {latest}...")
@@ -103,7 +108,11 @@ for item in dataset:
     
     # We predict the next token, so inputs and targets are shifted
     inputs = input_ids[:, :-1].contiguous()
-    targets = input_ids[:, 1:].contiguous()
+    targets = input_ids[:, 1:].clone().contiguous()
+    
+    # CRITICAL BUG FIX: Mask out the padding tokens! 
+    # Without this, the AI spends 80% of its gradient learning to correctly predict <EOS> after <EOS>.
+    targets[targets == tokenizer.pad_token_id] = -100
     
     optimizer.zero_grad(set_to_none=True)
     

@@ -4,42 +4,38 @@
       {
         "d_model": 32,
         "n_params": 174079,
-        "train_loss": 3.277289881706238,
-        "val_loss": 3.0540528297424316,
+        "train_loss": 3.9162355136871336,
+        "val_loss": 3.7697598934173584,
         "steps": 300,
         "tokens": 230400
       },
       {
         "d_model": 64,
         "n_params": 652558,
-        "train_loss": 2.406885275840759,
-        "val_loss": 2.176013946533203,
+        "train_loss": 4.122495698928833,
+        "val_loss": 3.9737026691436768,
         "steps": 300,
         "tokens": 230400
       },
       {
         "d_model": 128,
         "n_params": 2554253,
-        "train_loss": NaN,
-        "val_loss": NaN,
+        "train_loss": 5.067824258804321,
+        "val_loss": 4.9905805587768555,
         "steps": 300,
         "tokens": 230400
       },
       {
         "d_model": 256,
         "n_params": 10105870,
-        "train_loss": NaN,
-        "val_loss": NaN,
+        "train_loss": 4.094708681106567,
+        "val_loss": 3.9274182319641113,
         "steps": 300,
         "tokens": 230400
       }
     ],
     "law": {
-      "alpha": NaN,
-      "L_inf": NaN,
-      "A": NaN,
-      "predicted_loss_5M": NaN,
-      "note": "Extrapolation is rough (proxy \u2260 full dataset/schedule). Use as directional signal, not hard prediction."
+      "note": "Loss did not decrease with scale \u2014 more training needed"
     }
   },
   "theory": {
@@ -264,103 +260,103 @@
     ],
     "grad_flow_summary": {
       "embedding": {
-        "mean": 2.978762,
-        "max": 2.978762,
-        "min": 2.978762,
+        "mean": 3.157791,
+        "max": 3.157791,
+        "min": 3.157791,
         "dead": 0,
         "total": 1
       },
       "fast_layers": {
-        "mean": 0.681922,
-        "max": 37.410881,
+        "mean": 0.703425,
+        "max": 34.712254,
         "min": 0.0,
-        "dead": 26,
+        "dead": 37,
         "total": 257
       },
       "upsample": {
-        "mean": 0.592739,
-        "max": 1.683261,
-        "min": 0.019417,
+        "mean": 0.260436,
+        "max": 0.648103,
+        "min": 0.021545,
         "dead": 0,
         "total": 6
       },
       "workspace": {
-        "mean": 1.718958,
-        "max": 14.891468,
+        "mean": 1.481833,
+        "max": 12.908204,
         "min": 0.0,
         "dead": 3,
         "total": 10
       },
       "attention_layer": {
-        "mean": 0.791748,
-        "max": 2.004487,
-        "min": 8.5e-05,
+        "mean": 0.704833,
+        "max": 1.667516,
+        "min": 5.4e-05,
         "dead": 0,
         "total": 10
       },
       "slow_layers": {
-        "mean": 0.15523,
-        "max": 0.923553,
-        "min": 3.8e-05,
+        "mean": 0.198451,
+        "max": 1.293654,
+        "min": 2.1e-05,
         "dead": 0,
-        "total": 160
+        "total": 168
       },
       "final_norm": {
-        "mean": 0.019185,
-        "max": 0.038242,
-        "min": 0.000129,
+        "mean": 0.019952,
+        "max": 0.039694,
+        "min": 0.00021,
         "dead": 0,
         "total": 2
       }
     },
     "inductive_bias": {
       "locality_bias": {
-        "embedding_adj_cosine": -0.0037,
-        "deep_fast_adj_cosine": 0.8452,
+        "embedding_adj_cosine": 0.0052,
+        "deep_fast_adj_cosine": 0.7642,
         "note": "Higher cosine \u2192 model maps similar positions similarly (locality bias)"
       },
       "recency_bias": {
-        "first_half_var": 0.002766,
+        "first_half_var": 0.002868,
         "second_half_var": NaN,
         "ratio": NaN,
         "note": "Ratio > 1 means recent tokens have higher representational variance"
       },
       "dendrite_routing": {
-        "fast_0_routing_entropy": 0.9255,
-        "fast_1_routing_entropy": 0.9282,
-        "fast_2_routing_entropy": 0.9144,
-        "fast_3_routing_entropy": 0.9256,
+        "fast_0_routing_entropy": 0.9279,
+        "fast_1_routing_entropy": 0.9259,
+        "fast_2_routing_entropy": 0.9327,
+        "fast_3_routing_entropy": 0.931,
         "note": "Entropy near 1.0 = uniform (no routing); near 0 = winner-take-all"
       },
       "workspace_rank": {
-        "effective_rank": 5.94,
+        "effective_rank": 4.8,
         "bottleneck_dim": 96,
-        "rank_util": 0.062,
+        "rank_util": 0.05,
         "note": "Low rank_util = bottleneck is collapsing to few dimensions"
       }
     }
   },
   "mechanistic": {
     "cka_chain": {
-      "embedding\u2192fast_0": 0.9992,
+      "embedding\u2192fast_0": 0.9995,
       "fast_0\u2192fast_1": 0.9999,
       "fast_1\u2192fast_2": 0.9992,
-      "fast_2\u2192fast_3": 0.9987,
-      "fast_3\u2192slow_0": 0.982,
-      "slow_0\u2192slow_1": 0.9994,
-      "slow_1\u2192slow_2": 0.9987,
-      "slow_2\u2192slow_3": 0.9996
+      "fast_2\u2192fast_3": 0.9991,
+      "fast_3\u2192slow_0": 0.9935,
+      "slow_0\u2192slow_1": 0.9989,
+      "slow_1\u2192slow_2": 0.9996,
+      "slow_2\u2192slow_3": 0.9994
     },
     "pca_dims": {
       "embedding": {
-        "d90": 84,
+        "d90": 83,
         "d_total": 256,
-        "ratio": 0.328
+        "ratio": 0.324
       },
       "fast_0": {
-        "d90": 82,
+        "d90": 81,
         "d_total": 256,
-        "ratio": 0.32
+        "ratio": 0.316
       },
       "fast_1": {
         "d90": 81,
@@ -378,75 +374,75 @@
         "ratio": 0.098
       },
       "slow_0": {
-        "d90": 22,
+        "d90": 26,
         "d_total": 256,
-        "ratio": 0.086
+        "ratio": 0.102
       },
       "slow_1": {
-        "d90": 24,
-        "d_total": 256,
-        "ratio": 0.094
-      },
-      "slow_2": {
-        "d90": 27,
-        "d_total": 256,
-        "ratio": 0.105
-      },
-      "slow_3": {
         "d90": 28,
         "d_total": 256,
         "ratio": 0.109
+      },
+      "slow_2": {
+        "d90": 29,
+        "d_total": 256,
+        "ratio": 0.113
+      },
+      "slow_3": {
+        "d90": 31,
+        "d_total": 256,
+        "ratio": 0.121
       }
     },
     "delta_memory_growth": {
       "state_norms_first5": [
         0.0003,
-        0.0007,
-        0.0009,
-        0.001,
-        0.001
+        0.0004,
+        0.0005,
+        0.0006,
+        0.0005
       ],
       "state_norms_last5": [
-        0.0025,
-        0.0026,
-        0.0026,
-        0.0026,
-        0.0027
+        0.0006,
+        0.0007,
+        0.0005,
+        0.0005,
+        0.0005
       ],
-      "growth_ratio": 9.0,
-      "saturated": false
+      "growth_ratio": 1.667,
+      "saturated": true
     },
-    "fast_slow_divergence": 3.3504
+    "fast_slow_divergence": 2.9554
   },
   "benchmarks": [
     {
       "name": "copy_first_token",
-      "accuracy": 0.0,
-      "train_loss": NaN,
+      "accuracy": 0.7967,
+      "train_loss": 0.8163,
       "random_baseline": 0.0333,
       "steps": 900,
       "note": "Position-specific memory retrieval"
     },
     {
       "name": "abab_pattern",
-      "accuracy": 0.0,
-      "train_loss": NaN,
+      "accuracy": 0.57,
+      "train_loss": 1.5101,
       "random_baseline": 0.05,
       "steps": 900,
       "note": "In-context associative binding (DeltaMemory core task)"
     },
     {
       "name": "sorting_min",
-      "accuracy": 0.43,
-      "train_loss": 1.3522,
+      "accuracy": 0.235,
+      "train_loss": 1.992,
       "random_baseline": 0.0417,
       "steps": 900,
       "note": "Global min-reduction over a sequence"
     },
     {
       "name": "transitive_inference",
-      "accuracy": 0.4767,
-      "train_loss": 1.1985,
+      "accuracy": 0.5167,
+      "train_loss": 1.1571,
       "random_baseline": 0.0074,
       "steps": 1200,
       "note": "Multi-hop symbolic chaining"
@@ -457,49 +453,49 @@
       "lag_2": 0.0,
       "lag_4": 0.0,
       "lag_8": 0.0,
-      "lag_16": 0.0,
+      "lag_16": 0.02,
       "lag_24": 0.0
     },
     "hierarchy": {
       "fast_0": {
-        "within_var": 0.003224,
-        "across_var": 0.003221,
-        "abstraction_index": 0.999
-      },
-      "fast_1": {
-        "within_var": 0.006091,
-        "across_var": 0.006084,
+        "within_var": 0.003272,
+        "across_var": 0.003269,
         "abstraction_index": 0.9989
       },
+      "fast_1": {
+        "within_var": 0.006145,
+        "across_var": 0.006149,
+        "abstraction_index": 1.0007
+      },
       "fast_2": {
-        "within_var": 0.002807,
-        "across_var": 0.002809,
-        "abstraction_index": 1.0009
+        "within_var": 0.002774,
+        "across_var": 0.002785,
+        "abstraction_index": 1.0042
       },
       "fast_3": {
-        "within_var": 0.002759,
-        "across_var": 0.002754,
-        "abstraction_index": 0.9983
+        "within_var": 0.002862,
+        "across_var": 0.002861,
+        "abstraction_index": 0.9996
       },
       "slow_0": {
-        "within_var": 0.007207,
-        "across_var": 0.014362,
-        "abstraction_index": 1.9929
+        "within_var": 0.00521,
+        "across_var": 0.007713,
+        "abstraction_index": 1.4804
       },
       "slow_1": {
-        "within_var": 0.009847,
-        "across_var": 0.018718,
-        "abstraction_index": 1.9008
+        "within_var": 0.008607,
+        "across_var": 0.012409,
+        "abstraction_index": 1.4418
       },
       "slow_2": {
-        "within_var": 0.012648,
-        "across_var": 0.023102,
-        "abstraction_index": 1.8265
+        "within_var": 0.012045,
+        "across_var": 0.016834,
+        "abstraction_index": 1.3976
       },
       "slow_3": {
-        "within_var": 0.01564,
-        "across_var": 0.02752,
-        "abstraction_index": 1.7596
+        "within_var": 0.01558,
+        "across_var": 0.021349,
+        "abstraction_index": 1.3702
       }
     },
     "feedback": {
@@ -516,10 +512,10 @@
       "note": "Decreasing lengths = genuine multi-scale temporal hierarchy"
     },
     "sparse_coding": {
-      "fast_0_norm1": 0.4139,
-      "fast_1_norm1": 0.4126,
-      "fast_2_norm1": 0.5097,
-      "fast_3_norm1": 0.4936
+      "fast_0_norm1": 0.4138,
+      "fast_1_norm1": 0.4125,
+      "fast_2_norm1": 0.5012,
+      "fast_3_norm1": 0.5101
     }
   }
 }
