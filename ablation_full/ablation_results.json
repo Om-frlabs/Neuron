@@ -1,0 +1,454 @@
+{
+  "no_stride": {
+    "name": "no_stride",
+    "description": "All layers stride=1 (no temporal hierarchy)",
+    "is_go_nogo": false,
+    "total_params": 4445350,
+    "trainable_params": 4445350,
+    "final_val_loss": 5.569883028666179,
+    "final_train_loss": 8.083822679519653,
+    "val_history": [
+      {
+        "step": 2,
+        "val_loss": 8.309589068094889
+      },
+      {
+        "step": 4,
+        "val_loss": 8.309335390726725
+      },
+      {
+        "step": 6,
+        "val_loss": 8.308856964111328
+      },
+      {
+        "step": 8,
+        "val_loss": 8.308130264282227
+      },
+      {
+        "step": 10,
+        "val_loss": 8.307119687398275
+      },
+      {
+        "step": 12,
+        "val_loss": 8.305770556131998
+      },
+      {
+        "step": 14,
+        "val_loss": 8.304004669189453
+      },
+      {
+        "step": 16,
+        "val_loss": 8.301713943481445
+      },
+      {
+        "step": 18,
+        "val_loss": 8.29874324798584
+      },
+      {
+        "step": 20,
+        "val_loss": 8.294878641764322
+      },
+      {
+        "step": 22,
+        "val_loss": 8.289816856384277
+      },
+      {
+        "step": 24,
+        "val_loss": 8.283121109008789
+      },
+      {
+        "step": 26,
+        "val_loss": 8.2741912206014
+      },
+      {
+        "step": 28,
+        "val_loss": 8.262166976928711
+      },
+      {
+        "step": 30,
+        "val_loss": 8.245773633321127
+      },
+      {
+        "step": 32,
+        "val_loss": 8.223148028055826
+      },
+      {
+        "step": 34,
+        "val_loss": 8.19157886505127
+      },
+      {
+        "step": 36,
+        "val_loss": 8.14698346455892
+      },
+      {
+        "step": 38,
+        "val_loss": 8.08280881245931
+      },
+      {
+        "step": 40,
+        "val_loss": 7.988505681355794
+      },
+      {
+        "step": 42,
+        "val_loss": 7.844495932261149
+      },
+      {
+        "step": 44,
+        "val_loss": 7.616963068644206
+      },
+      {
+        "step": 46,
+        "val_loss": 7.244961579640706
+      },
+      {
+        "step": 48,
+        "val_loss": 6.618715922037761
+      },
+      {
+        "step": 50,
+        "val_loss": 5.569883028666179
+      }
+    ],
+    "total_time_s": 149.97563076019287,
+    "steps": 50
+  },
+  "no_dendritic": {
+    "name": "no_dendritic",
+    "description": "Standard MLP instead of DendriticMixer",
+    "is_go_nogo": false,
+    "total_params": 4639382,
+    "trainable_params": 4639382,
+    "final_val_loss": 4.081297397613525,
+    "final_train_loss": 7.801386418342591,
+    "val_history": [
+      {
+        "step": 2,
+        "val_loss": 8.306011199951172
+      },
+      {
+        "step": 4,
+        "val_loss": 8.305747032165527
+      },
+      {
+        "step": 6,
+        "val_loss": 8.305251121520996
+      },
+      {
+        "step": 8,
+        "val_loss": 8.304501215616861
+      },
+      {
+        "step": 10,
+        "val_loss": 8.303459167480469
+      },
+      {
+        "step": 12,
+        "val_loss": 8.30207347869873
+      },
+      {
+        "step": 14,
+        "val_loss": 8.300266901652018
+      },
+      {
+        "step": 16,
+        "val_loss": 8.297924677530924
+      },
+      {
+        "step": 18,
+        "val_loss": 8.294879913330078
+      },
+      {
+        "step": 20,
+        "val_loss": 8.29089101155599
+      },
+      {
+        "step": 22,
+        "val_loss": 8.28558603922526
+      },
+      {
+        "step": 24,
+        "val_loss": 8.278411865234375
+      },
+      {
+        "step": 26,
+        "val_loss": 8.268503824869791
+      },
+      {
+        "step": 28,
+        "val_loss": 8.254507700602213
+      },
+      {
+        "step": 30,
+        "val_loss": 8.234178225199381
+      },
+      {
+        "step": 32,
+        "val_loss": 8.20382022857666
+      },
+      {
+        "step": 34,
+        "val_loss": 8.157002131144205
+      },
+      {
+        "step": 36,
+        "val_loss": 8.082711855570475
+      },
+      {
+        "step": 38,
+        "val_loss": 7.958789189656575
+      },
+      {
+        "step": 40,
+        "val_loss": 7.741277535756429
+      },
+      {
+        "step": 42,
+        "val_loss": 7.350961685180664
+      },
+      {
+        "step": 44,
+        "val_loss": 6.648409207661946
+      },
+      {
+        "step": 46,
+        "val_loss": 5.413621425628662
+      },
+      {
+        "step": 48,
+        "val_loss": 3.8408210277557373
+      },
+      {
+        "step": 50,
+        "val_loss": 4.081297397613525
+      }
+    ],
+    "total_time_s": 118.87606811523438,
+    "steps": 50
+  },
+  "frozen_at_init": {
+    "name": "frozen_at_init",
+    "description": "Slow layers frozen at random init",
+    "is_go_nogo": true,
+    "total_params": 4642470,
+    "trainable_params": 3390366,
+    "final_val_loss": 5.731683890024821,
+    "final_train_loss": 8.071343488693238,
+    "val_history": [
+      {
+        "step": 2,
+        "val_loss": 8.306544621785482
+      },
+      {
+        "step": 4,
+        "val_loss": 8.306308110555014
+      },
+      {
+        "step": 6,
+        "val_loss": 8.305866877237955
+      },
+      {
+        "step": 8,
+        "val_loss": 8.305200894673666
+      },
+      {
+        "step": 10,
+        "val_loss": 8.304282506306967
+      },
+      {
+        "step": 12,
+        "val_loss": 8.303067525227865
+      },
+      {
+        "step": 14,
+        "val_loss": 8.301493326822916
+      },
+      {
+        "step": 16,
+        "val_loss": 8.29947026570638
+      },
+      {
+        "step": 18,
+        "val_loss": 8.296869595845541
+      },
+      {
+        "step": 20,
+        "val_loss": 8.293503125508627
+      },
+      {
+        "step": 22,
+        "val_loss": 8.289097468058268
+      },
+      {
+        "step": 24,
+        "val_loss": 8.283244768778482
+      },
+      {
+        "step": 26,
+        "val_loss": 8.275331179300943
+      },
+      {
+        "step": 28,
+        "val_loss": 8.264412879943848
+      },
+      {
+        "step": 30,
+        "val_loss": 8.249014218648275
+      },
+      {
+        "step": 32,
+        "val_loss": 8.22679074605306
+      },
+      {
+        "step": 34,
+        "val_loss": 8.194079399108887
+      },
+      {
+        "step": 36,
+        "val_loss": 8.145126978556315
+      },
+      {
+        "step": 38,
+        "val_loss": 8.07131258646647
+      },
+      {
+        "step": 40,
+        "val_loss": 7.958300431569417
+      },
+      {
+        "step": 42,
+        "val_loss": 7.78602933883667
+      },
+      {
+        "step": 44,
+        "val_loss": 7.529064496358235
+      },
+      {
+        "step": 46,
+        "val_loss": 7.149252096811931
+      },
+      {
+        "step": 48,
+        "val_loss": 6.5821553866068525
+      },
+      {
+        "step": 50,
+        "val_loss": 5.731683890024821
+      }
+    ],
+    "total_time_s": 122.32234001159668,
+    "steps": 50
+  },
+  "frozen_after_2500": {
+    "name": "frozen_after_2500",
+    "description": "Slow layers frozen after 2500 steps",
+    "is_go_nogo": true,
+    "total_params": 4642470,
+    "trainable_params": 4642470,
+    "final_val_loss": 3.4881935119628906,
+    "final_train_loss": 7.835673537254333,
+    "val_history": [
+      {
+        "step": 2,
+        "val_loss": 8.306564648946127
+      },
+      {
+        "step": 4,
+        "val_loss": 8.306304931640625
+      },
+      {
+        "step": 6,
+        "val_loss": 8.305816014607748
+      },
+      {
+        "step": 8,
+        "val_loss": 8.305075963338217
+      },
+      {
+        "step": 10,
+        "val_loss": 8.304049809773764
+      },
+      {
+        "step": 12,
+        "val_loss": 8.30268128712972
+      },
+      {
+        "step": 14,
+        "val_loss": 8.30089028676351
+      },
+      {
+        "step": 16,
+        "val_loss": 8.298561731974283
+      },
+      {
+        "step": 18,
+        "val_loss": 8.295535723368326
+      },
+      {
+        "step": 20,
+        "val_loss": 8.291556676228842
+      },
+      {
+        "step": 22,
+        "val_loss": 8.286257108052572
+      },
+      {
+        "step": 24,
+        "val_loss": 8.279072761535645
+      },
+      {
+        "step": 26,
+        "val_loss": 8.269127209981283
+      },
+      {
+        "step": 28,
+        "val_loss": 8.255032221476236
+      },
+      {
+        "step": 30,
+        "val_loss": 8.234519322713217
+      },
+      {
+        "step": 32,
+        "val_loss": 8.203970591227213
+      },
+      {
+        "step": 34,
+        "val_loss": 8.157059669494629
+      },
+      {
+        "step": 36,
+        "val_loss": 8.0830446879069
+      },
+      {
+        "step": 38,
+        "val_loss": 7.9610927899678545
+      },
+      {
+        "step": 40,
+        "val_loss": 7.752500057220459
+      },
+      {
+        "step": 42,
+        "val_loss": 7.393552144368489
+      },
+      {
+        "step": 44,
+        "val_loss": 6.7826738357543945
+      },
+      {
+        "step": 46,
+        "val_loss": 5.772477785746257
+      },
+      {
+        "step": 48,
+        "val_loss": 4.29177459081014
+      },
+      {
+        "step": 50,
+        "val_loss": 3.4881935119628906
+      }
+    ],
+    "total_time_s": 196.8337459564209,
+    "steps": 50
+  }
+}

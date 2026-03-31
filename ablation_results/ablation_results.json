@@ -1,0 +1,281 @@
+{
+  "baseline": {
+    "name": "baseline",
+    "description": "Full NEURON-1 (no modification)",
+    "is_go_nogo": false,
+    "total_params": 4642470,
+    "trainable_params": 4642470,
+    "final_val_loss": 7.397824605305989,
+    "final_train_loss": 23.521907348632812,
+    "val_history": [
+      {
+        "step": 5,
+        "val_loss": 8.303795178731283
+      },
+      {
+        "step": 10,
+        "val_loss": 8.301382382710775
+      },
+      {
+        "step": 15,
+        "val_loss": 8.296326955159506
+      },
+      {
+        "step": 20,
+        "val_loss": 8.286345481872559
+      },
+      {
+        "step": 25,
+        "val_loss": 8.264993985493978
+      },
+      {
+        "step": 30,
+        "val_loss": 8.211572647094727
+      },
+      {
+        "step": 35,
+        "val_loss": 8.044858932495117
+      },
+      {
+        "step": 40,
+        "val_loss": 7.386717955271403
+      },
+      {
+        "step": 45,
+        "val_loss": 4.951260884602864
+      },
+      {
+        "step": 50,
+        "val_loss": 4.551815668741862
+      },
+      {
+        "step": 55,
+        "val_loss": 5.752569357554118
+      },
+      {
+        "step": 60,
+        "val_loss": 20.677565892537434
+      },
+      {
+        "step": 65,
+        "val_loss": 21.031388600667317
+      },
+      {
+        "step": 70,
+        "val_loss": 57.753807067871094
+      },
+      {
+        "step": 75,
+        "val_loss": 53.963507334391274
+      },
+      {
+        "step": 80,
+        "val_loss": 55.26265207926432
+      },
+      {
+        "step": 85,
+        "val_loss": 63.073445638020836
+      },
+      {
+        "step": 90,
+        "val_loss": 33.60612487792969
+      },
+      {
+        "step": 95,
+        "val_loss": 9.006841023763021
+      },
+      {
+        "step": 100,
+        "val_loss": 7.397824605305989
+      }
+    ],
+    "total_time_s": 420.5930449962616,
+    "steps": 100
+  },
+  "no_compnorm": {
+    "name": "no_compnorm",
+    "description": "Replace CompNorm with LayerNorm",
+    "is_go_nogo": false,
+    "total_params": 4646868,
+    "trainable_params": 4646868,
+    "final_val_loss": 1.3394562403361003,
+    "final_train_loss": 4.218433331251145,
+    "val_history": [
+      {
+        "step": 5,
+        "val_loss": 7.078383445739746
+      },
+      {
+        "step": 10,
+        "val_loss": 6.881965637207031
+      },
+      {
+        "step": 15,
+        "val_loss": 6.675176461537679
+      },
+      {
+        "step": 20,
+        "val_loss": 6.466503938039144
+      },
+      {
+        "step": 25,
+        "val_loss": 6.192186037699382
+      },
+      {
+        "step": 30,
+        "val_loss": 5.863472143809001
+      },
+      {
+        "step": 35,
+        "val_loss": 5.489538033803304
+      },
+      {
+        "step": 40,
+        "val_loss": 5.066408634185791
+      },
+      {
+        "step": 45,
+        "val_loss": 4.585521539052327
+      },
+      {
+        "step": 50,
+        "val_loss": 4.070218404134114
+      },
+      {
+        "step": 55,
+        "val_loss": 3.5655269622802734
+      },
+      {
+        "step": 60,
+        "val_loss": 3.126792589823405
+      },
+      {
+        "step": 65,
+        "val_loss": 2.753284136454264
+      },
+      {
+        "step": 70,
+        "val_loss": 2.418314774831136
+      },
+      {
+        "step": 75,
+        "val_loss": 2.1808279355367026
+      },
+      {
+        "step": 80,
+        "val_loss": 1.9473424752553303
+      },
+      {
+        "step": 85,
+        "val_loss": 1.7528102397918701
+      },
+      {
+        "step": 90,
+        "val_loss": 1.6057544946670532
+      },
+      {
+        "step": 95,
+        "val_loss": 1.477595329284668
+      },
+      {
+        "step": 100,
+        "val_loss": 1.3394562403361003
+      }
+    ],
+    "total_time_s": 198.39803457260132,
+    "steps": 100
+  },
+  "frozen_at_init": {
+    "name": "frozen_at_init",
+    "description": "Slow layers frozen at random init",
+    "is_go_nogo": true,
+    "total_params": 4642470,
+    "trainable_params": 3390366,
+    "final_val_loss": 31.334847768147785,
+    "final_train_loss": 16.68360713005066,
+    "val_history": [
+      {
+        "step": 5,
+        "val_loss": 8.306262969970703
+      },
+      {
+        "step": 10,
+        "val_loss": 8.304395039876303
+      },
+      {
+        "step": 15,
+        "val_loss": 8.3006010055542
+      },
+      {
+        "step": 20,
+        "val_loss": 8.293453852335611
+      },
+      {
+        "step": 25,
+        "val_loss": 8.279173533121744
+      },
+      {
+        "step": 30,
+        "val_loss": 8.246782302856445
+      },
+      {
+        "step": 35,
+        "val_loss": 8.159696261088053
+      },
+      {
+        "step": 40,
+        "val_loss": 7.885772705078125
+      },
+      {
+        "step": 45,
+        "val_loss": 7.011347929636638
+      },
+      {
+        "step": 50,
+        "val_loss": 4.739108721415202
+      },
+      {
+        "step": 55,
+        "val_loss": 6.473412990570068
+      },
+      {
+        "step": 60,
+        "val_loss": 12.758330345153809
+      },
+      {
+        "step": 65,
+        "val_loss": 18.356670379638672
+      },
+      {
+        "step": 70,
+        "val_loss": 19.29830805460612
+      },
+      {
+        "step": 75,
+        "val_loss": 43.339569091796875
+      },
+      {
+        "step": 80,
+        "val_loss": 23.938866933186848
+      },
+      {
+        "step": 85,
+        "val_loss": 25.80172856648763
+      },
+      {
+        "step": 90,
+        "val_loss": 34.5533078511556
+      },
+      {
+        "step": 95,
+        "val_loss": 28.514127095540363
+      },
+      {
+        "step": 100,
+        "val_loss": 31.334847768147785
+      }
+    ],
+    "total_time_s": 433.45781350135803,
+    "steps": 100
+  }
+}
