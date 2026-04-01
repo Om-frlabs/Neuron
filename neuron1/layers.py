@@ -666,15 +666,22 @@ class FastLayer(nn.Module):
             gate = torch.sigmoid(self.pred_gate)
             x = gate * x + (1 - gate) * error
 
-        # ── Temporal stride (AUDIT FIX: depthwise conv, not max-pool) ──
+        # ── Temporal stride (AUDIT FIX: strictly causal downsample) ──
         if self.stride > 1:
             B, T, D = x.shape
-            T_pad = (self.stride - T % self.stride) % self.stride
-            if T_pad > 0:
-                x = F.pad(x, (0, 0, 0, T_pad))
+            # Causal left-padding ensures convolution kernel cannot look ahead into future tokens
+            causal_pad = self.stride - 1
+            x_padded = F.pad(x, (0, 0, causal_pad, 0))  # Pad T dimension on the left
+            
+            # Ensure divisibility by stride for the convolution
+            T_padded = x_padded.shape[1]
+            T_pad_right = (self.stride - T_padded % self.stride) % self.stride
+            if T_pad_right > 0:
+                x_padded = F.pad(x_padded, (0, 0, 0, T_pad_right))
+                
             # Conv1d expects (B, D, T)
-            x = self.downsample(x.transpose(1, 2)).transpose(1, 2)
-
+            x = self.downsample(x_padded.transpose(1, 2)).transpose(1, 2)
+            
         # ── Dendritic mixing + Delta memory ──
         h = self.norm1(x)
         h = self.dendritic(h)

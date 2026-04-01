@@ -10,8 +10,26 @@ from neuron1.model import Neuron1
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # 1. SETUP THE CHAT ENGINE
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CHECKPOINT_DIR = "/content/drive/MyDrive/NEURON_Checkpoints"
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-CHECKPOINT_PATH = "/content/drive/MyDrive/NEURON_Checkpoints/neuron1_ckpt_2000.pt" # Change this to the phase 2 checkpoint!
+
+def get_latest_checkpoint():
+    if not os.path.exists(CHECKPOINT_DIR):
+        return None
+    ckpts = [f for f in os.listdir(CHECKPOINT_DIR) if f.startswith("neuron1_ckpt_") and f.endswith(".pt")]
+    if not ckpts:
+        return None
+    
+    def get_step(filename):
+        try:
+            return int(filename.split("_")[-1].replace(".pt", ""))
+        except:
+            return -1
+            
+    ckpts.sort(key=get_step)
+    return os.path.join(CHECKPOINT_DIR, ckpts[-1])
+
+CHECKPOINT_PATH = get_latest_checkpoint()
 
 tokenizer = AutoTokenizer.from_pretrained("gpt2")
 if tokenizer.pad_token is None:
