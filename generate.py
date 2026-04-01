@@ -11,8 +11,20 @@ from transformers import AutoTokenizer
 # 1. SETUP & CONFIGURATION
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-# Update this if your checkpoint path is different!
-CHECKPOINT_PATH = "/content/drive/MyDrive/NEURON_Checkpoints/neuron1_ckpt_24000.pt"
+import glob
+# Dynamically find the latest checkpoint
+CHECKPOINT_DIR = "/content/drive/MyDrive/NEURON_Checkpoints"
+checkpoints = glob.glob(os.path.join(CHECKPOINT_DIR, "neuron1_ckpt_*.pt"))
+
+if not checkpoints:
+    CHECKPOINT_PATH = "" 
+else:
+    def get_ckpt_step(filepath):
+        try:
+            return int(os.path.basename(filepath).replace("neuron1_ckpt_", "").replace(".pt", ""))
+        except:
+            return -1
+    CHECKPOINT_PATH = max(checkpoints, key=get_ckpt_step)
 
 # PERFECT AI UPGRADE: Using professional GPT-2 Word-Level Tokenizer
 tokenizer = AutoTokenizer.from_pretrained("gpt2")

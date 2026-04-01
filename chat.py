@@ -10,7 +10,7 @@ from neuron1.model import Neuron1
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # 1. SETUP THE CHAT ENGINE
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-CHECKPOINT_DIR = "/content/drive/MyDrive/NEURON_Checkpoints"
+CHECKPOINT_DIR = "/content/drive/MyDrive/NEURON_Checkpoints_SFT"
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 def get_latest_checkpoint():
@@ -125,12 +125,13 @@ def chat():
                 
                 next_word = tokenizer.decode(next_token)
                 
-                # Check if it spontaneously generated "User:" meaning it thinks it's its turn to ask a question
-                # We stop it from hallucinating the user!
+                # Stop generating if it hallucinates the user or hits OpenAssistant's special ChatML tags
                 response_text += next_word
-                if "User:" in response_text or next_token.item() == tokenizer.eos_token_id:
-                    # Strip the hallucinated string and break
-                    response_text = response_text.replace("User:", "").strip()
+                if any(stop_word in response_text for stop_word in ["User:", "<|im_end|>", "<|im_start|>"]) or next_token.item() == tokenizer.eos_token_id:
+                    # Strip the hallucinated tags and break
+                    for stop_word in ["User:", "<|im_end|>", "<|im_start|>"]:
+                        response_text = response_text.replace(stop_word, "")
+                    response_text = response_text.strip()
                     break
                     
                 print(next_word, end="", flush=True)

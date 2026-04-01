@@ -21,7 +21,7 @@ BATCH_SIZE = 4           # Works safely on 16GB Colab T4 and most CPU setups
 CONTEXT_LENGTH = 1024    # 1K tokens for Phase 1
 LEARNING_RATE = 3e-4     
 EPOCHS = 1               # TinyStories is huge, 1 epoch is fine
-SAVE_DIR = "/content/drive/MyDrive/NEURON_Checkpoints/"
+SAVE_DIR = "/content/drive/MyDrive/NEURON_Checkpoints_Ablation/"
 
 print(f"🚀 Initializing NEURON-1 Training on {DEVICE}...")
 
@@ -64,7 +64,11 @@ config = Neuron1Config(
 
 base_model = Neuron1(config)
 model = Neuron1WithHooks(base_model).to(DEVICE)
-loss_fn = Neuron1Loss().to(DEVICE)
+loss_fn = Neuron1Loss(
+    lambda_pred=0.0, 
+    lambda_collapse=0.0, 
+    lambda_compress=0.0
+).to(DEVICE)
 optimizer = torch.optim.AdamW(model.parameters(), lr=LEARNING_RATE, weight_decay=0.01)
 
 # Check for existing checkpoint in Google Drive to resume (so you don't lose Colab progress)
