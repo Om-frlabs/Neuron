@@ -55,7 +55,8 @@ def _mp_fn(index, flags):
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
         
-    dataset = load_dataset("wikipedia", "20220301.simple", split="train")
+    # HuggingFace requires explicit trust for the wikipedia dataset scripts
+    dataset = load_dataset("wikipedia", "20220301.simple", trust_remote_code=True, split="train")
     
     # A lightweight data generator mimicking distributed sampling
     def data_generator():
