@@ -25,12 +25,14 @@ def _mp_fn(index, flags):
     # `index` is the core number (0 to 7 on a TPU v3-8)
     
     # Grab the specific TPU core device assigned to this process
-    device = xm.xla_device()
+    import torch_xla
+    device = torch_xla.device()
     
     # 🟢 TRC Scaling Config: The 1.5 Billion Parameter Distributed NEURON 
     config = Neuron1Config(
         d_model=2048,          # Increased from 256 to 2048
         n_fast_layers=16,      # Expanded depth for temporal reasoning
+        fast_strides=[2] * 16, # Match the 16 layers with a 2x stride for each!
         n_slow_layers=16,      # Expanded depth for deep semantic reasoning
         use_moe=True, 
         n_experts=32,          # 32 massive experts
