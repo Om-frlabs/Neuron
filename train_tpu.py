@@ -141,8 +141,9 @@ if __name__ == '__main__':
     
     print("🚀 Spawning 8-Core PyTorch XLA Training Process on Google TRC Silicon...")
     
-    # 🟢 xmp.spawn fires off 8 simultaneous Python threads, one for each internal TPU chip.
+    # 🟢 xmp.spawn fires off simultaneous Python threads for every internal TPU chip.
+    # We set nprocs=None so it automatically scales depending on whether you are on a single free Colab v5e chip, or an 8-core TRC v3-8!
     try:
-        xmp.spawn(_mp_fn, args=(FLAGS,), nprocs=8, start_method='fork')
+        xmp.spawn(_mp_fn, args=(FLAGS,), nprocs=None, start_method='fork')
     except Exception as e:
         print(f"\n❌ FAILED TO SPAWN PyTorch XLA! (Are you running this on a TPU cluster?): {e}")
