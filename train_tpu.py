@@ -24,6 +24,10 @@ from neuron1.loss import Neuron1Loss
 def _mp_fn(index, flags):
     # `index` is the core number (0 to 7 on a TPU v3-8)
     
+    # 🟢 Enable Native TPU Bfloat16 (HALVES MEMORY USAGE)
+    # This ensures the massive 1.5B parameters fit perfectly into the 16GB HBM of a Colab v5e-1 chip!
+    os.environ["XLA_USE_BF16"] = "1"
+    
     # Grab the specific TPU core device assigned to this process
     import torch_xla
     device = torch_xla.device()
