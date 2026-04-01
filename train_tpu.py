@@ -24,10 +24,6 @@ from neuron1.loss import Neuron1Loss
 def _mp_fn(index, flags):
     # `index` is the core number (0 to 7 on a TPU v3-8)
     
-    # 🟢 Enable Native TPU Bfloat16 (HALVES MEMORY USAGE)
-    # This ensures the massive 1.5B parameters fit perfectly into the 16GB HBM of a Colab v5e-1 chip!
-    os.environ["XLA_USE_BF16"] = "1"
-    
     # Grab the specific TPU core device assigned to this process
     import torch_xla
     device = torch_xla.device()
@@ -46,7 +42,11 @@ def _mp_fn(index, flags):
     )
     
     # Initialize Model directly onto the TPU Core memory
-    model = Neuron1(config).to(device)
+    model = Neuron1(config)
+    
+    # 🟢 PyTorch XLA 2.6+ natively supports bfloat16 casting to halve HBM overhead!
+    model = model.to(torch.bfloat16).to(device)
+    
     loss_fn = Neuron1Loss(lambda_pred=0.1, lambda_collapse=0.01, lambda_compress=0.01).to(device)
     
     optimizer = torch.optim.AdamW(model.parameters(), lr=flags['lr'], weight_decay=0.01)
@@ -55,8 +55,8 @@ def _mp_fn(index, flags):
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
         
-    # HuggingFace requires explicit trust for the wikipedia dataset scripts
-    dataset = load_dataset("wikipedia", "20220301.simple", trust_remote_code=True, split="train")
+    # HuggingFace killed raw python dataset scripts. We use the official parquet 'wikitext' instead!
+    dataset = load_dataset("wikitext", "wikitext-103-raw-v1", split="train")
     
     # A lightweight data generator mimicking distributed sampling
     def data_generator():
