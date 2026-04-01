@@ -139,13 +139,21 @@ if __name__ == '__main__':
         'max_steps': 15000 # 15k steps on TPU is equivalent to hundreds of hours on a Colab T4
     }
     
-    print("🚀 Spawning 8-Core PyTorch XLA Training Process on Google TRC Silicon...")
-    
-    # 🟢 We first try to spawn an 8-core cluster (For when you get your Google TRC Supercomputer)
+    # Preemptive Check: Does this machine only have 1 TPU core (like Colab v5e-1)?
+    # We must check BEFORE calling xmp.spawn, because xmp.spawn can crash the C++ runtime on 1-core slices.
     try:
-        xmp.spawn(_mp_fn, args=(FLAGS,), nprocs=8, start_method='fork')
-    except Exception as e:
-        print(f"\n⚠️ 8-Core Spawner failed ({e}).")
-        print("💡 Detected single-chip Colab environment (TPU v5e-1). Falling back to direct execution...")
-        # Automatically run on the main thread for the free Colab v5e chip!
+        devices = xm.get_xla_supported_devices()
+    except Exception:
+        devices = [1] # fallback assumption
+        
+    if len(devices) == 1:
+        print("💡 Detected a Single-Core TPU environment (Colab v5e-1).")
+        print("🚀 Bypassing multi-processing and executing 1.5B NEURON directly on the main thread...")
         _mp_fn(0, FLAGS)
+    else:
+        print(f"🚀 Spawning PyTorch XLA Spawner across {len(devices)} Google TRC TPU Cores...")
+        try:
+            xmp.spawn(_mp_fn, args=(FLAGS,), nprocs=len(devices), start_method='fork')
+        except Exception as e:
+            print(f"\n⚠️ Spawner failed ({e}). Falling back to main thread...")
+            _mp_fn(0, FLAGS)
